@@ -5,6 +5,7 @@
   font-size: 2.5em;
   text-align: center;
   height: 50px;
+  padding-left: 0.5em;
 }
 .incrementer .incrementer-row .icon:before {
   font-size: 22px;
