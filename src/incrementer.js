@@ -16,7 +16,7 @@ angular.module('incrementer', [])
         stepIntervalDelay: 800,
         initval: ''
       };
-      angular.forEach(defaultScope, function(value, key){
+      angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
       });
       scope['val'] = attrs.value || scope.initval;
@@ -111,13 +111,12 @@ angular.module('incrementer', [])
         };
       },
 
-        template: '<div class="row">' +
-          '<a class="button button-icon icon ion-minus" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()"></a>' +
-          '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-          '  <div class="counter" ng-model="val" ng-blur="checkValue()">' +
-          '  <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
-          '<a class="button button-icon icon ion-plus" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()"></a>' +
-          '</div>'
+      template: '<div class="row incrementer-row">' +
+        '<a class="button button-icon icon ion-minus" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()"></a>' +
+        '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
+        '<input type="text" ng-model="val" class="incrementer-value" ng-blur="checkValue()">' + '  <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
+        '<a class="button button-icon icon ion-plus" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()"></a>' +
+        '</div>'
     };
   }
 ]);
