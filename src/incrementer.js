@@ -111,11 +111,14 @@ angular.module('incrementer', [])
         };
       },
 
-      template: '<div class="row incrementer-row">' +
+      template: '<div class="incrementer">' +
+        '<div class="row incrementer-row">' +
         '<a class="button button-icon icon ion-minus" ng-mousedown="startSpinDown()" ng-mouseup="stopSpin()"></a>' +
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<input type="text" ng-model="val" class="incrementer-value" ng-blur="checkValue()">' + '  <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
+        '<input type="text" ng-model="val" class="incrementer-value" ng-blur="checkValue()">' +
+        ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '<a class="button button-icon icon ion-plus" ng-mousedown="startSpinUp()" ng-mouseup="stopSpin()"></a>' +
+        '</div>' +
         '</div>'
     };
   }

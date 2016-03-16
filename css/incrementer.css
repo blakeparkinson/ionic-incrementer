@@ -1,10 +1,10 @@
-.incrementer-value {
+.incrementer .incrementer-row .incrementer-value {
   color: #fff;
   background: #1E1E1E !important;
   width: 75px;
   font-size: 2.5em;
 }
 
-.incrementer-row .icon:before{
+.incrementer .incrementer-row .icon:before{
   font-size: 22px;
 }
