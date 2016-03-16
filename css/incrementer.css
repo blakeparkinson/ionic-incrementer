@@ -3,8 +3,10 @@
   background: #1E1E1E !important;
   width: 75px;
   font-size: 2.5em;
+  text-align: center;
 }
 
 .incrementer .incrementer-row .icon:before{
   font-size: 22px;
+  color: #fff;
 }
