@@ -1,11 +1,12 @@
-.incrementer .incrementer-row .incrementer-value {
-  color: #fff;
-  background: #1E1E1E !important;
-  width: 100px;
-  font-size: 2.5em;
-  text-align: center;
-  height: 50px;
-  padding-left: 0.5em;
+.incrementer .incrementer-row .input-container{
+  width: 200px;
+  margin-top: 12px;
+  font-size: 2em;
+
+}
+.incrementer .incrementer-row .input-container .postfix{
+  font-size: 0.7em;
+  margin-left: -10px;
 }
 .incrementer .incrementer-row .icon:before {
   font-size: 22px;

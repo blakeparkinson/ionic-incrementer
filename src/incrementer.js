@@ -115,8 +115,10 @@ angular.module('incrementer', [])
         '<div class="row incrementer-row">' +
         '<a class="button button-icon icon ion-minus" on-touch="startSpinDown()" on-release="stopSpin()"></a>' +
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<input type="text" ng-model="val" class="incrementer-value" ng-blur="checkValue()">' +
+        '<div class="input-container">'+
+        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span>' +
         ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
+        '</div>'+
         '<a class="button button-icon icon ion-plus" on-touch="startSpinUp()" on-release="stopSpin()"></a>' +
         '</div>' +
         '</div>'
