@@ -34,7 +34,7 @@ angular.module('incrementer', [])
 
         var timeout, timer, helper = true,
           oldval = scope.val,
-          clickStart;
+          clickStart, swipeTimer;
 
         ngModel.$setViewValue(scope.val);
 
@@ -63,39 +63,55 @@ angular.module('incrementer', [])
           ngModel.$setViewValue(value);
         };
 
-        scope.startSpinUp = function() {
+        scope.startSpinUp = function(swipe) {
           scope.checkValue();
           scope.increment();
 
           clickStart = Date.now();
           scope.stopSpin();
+          if (swipe) {
+            $timeout(function() {
+            }, scope.stepIntervalDelay);
+          } else {
 
-          $timeout(function() {
-            timer = $interval(function() {
-              scope.increment();
-            }, scope.stepInterval);
-          }, scope.stepIntervalDelay);
+            $timeout(function() {
+
+              timer = $interval(function() {
+
+                scope.increment();
+              }, scope.stepInterval);
+            }, scope.stepIntervalDelay);
+          }
         };
 
-        scope.startSpinDown = function() {
+        scope.startSpinDown = function(swipe) {
+
           scope.checkValue();
           scope.decrement();
 
           clickStart = Date.now();
 
-          var timeout = $timeout(function() {
-            timer = $interval(function() {
-              scope.decrement();
-            }, scope.stepInterval);
-          }, scope.stepIntervalDelay);
+          if (swipe) {
+            $timeout(function() {}, scope.stepIntervalDelay);
+          } else {
+
+            var timeout = $timeout(function() {
+
+              timer = $interval(function() {
+                scope.decrement();
+              }, scope.stepInterval);
+            }, scope.stepIntervalDelay);
+          }
         };
 
         scope.stopSpin = function() {
+
           if (Date.now() - clickStart > scope.stepIntervalDelay) {
             $timeout.cancel(timeout);
             $interval.cancel(timer);
           } else {
             $timeout(function() {
+
               $timeout.cancel(timeout);
               $interval.cancel(timer);
             }, scope.stepIntervalDelay);
@@ -116,7 +132,7 @@ angular.module('incrementer', [])
         '<div class="row incrementer-row">' +
         '<a class="button button-icon icon ion-minus" on-touch="startSpinDown()" on-release="stopSpin()"></a>' +
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container">' +
+        '<div class="input-container" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
         '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span>' +
         ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
