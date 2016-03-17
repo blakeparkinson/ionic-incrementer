@@ -7,7 +7,7 @@ angular.module('incrementer', [])
     var setScopeValues = function(scope, attrs) {
       var defaultScope = {
         min: 0,
-        max: 100,
+        max: 200,
         step: 1,
         prefix: undefined,
         postfix: undefined,
@@ -19,7 +19,8 @@ angular.module('incrementer', [])
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
       });
-      scope['val'] = attrs.value || scope.initval;
+      scope.val = attrs.value || scope.initval;
+      console.log(scope);
     };
 
     return {
@@ -41,7 +42,7 @@ angular.module('incrementer', [])
           oldval = scope.val;
           var value = parseFloat(parseFloat(Number(scope.val)) - parseFloat(scope.step)).toFixed(scope.decimals);
 
-          if (value < scope.min) {
+          if (value < parseInt(scope.min)) {
             value = parseFloat(scope.min).toFixed(scope.decimals);
             scope.val = value;
             ngModel.$setViewValue(value);
@@ -56,7 +57,7 @@ angular.module('incrementer', [])
           oldval = scope.val;
           var value = parseFloat(parseFloat(Number(scope.val)) + parseFloat(scope.step)).toFixed(scope.decimals);
 
-          if (value > scope.max) return;
+          if (value > parseInt(scope.max)) return;
 
           scope.val = value;
           ngModel.$setViewValue(value);
@@ -115,10 +116,10 @@ angular.module('incrementer', [])
         '<div class="row incrementer-row">' +
         '<a class="button button-icon icon ion-minus" on-touch="startSpinDown()" on-release="stopSpin()"></a>' +
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container">'+
+        '<div class="input-container">' +
         '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span>' +
         ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
-        '</div>'+
+        '</div>' +
         '<a class="button button-icon icon ion-plus" on-touch="startSpinUp()" on-release="stopSpin()"></a>' +
         '</div>' +
         '</div>'
