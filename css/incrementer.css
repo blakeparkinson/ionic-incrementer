@@ -1,14 +1,15 @@
 .incrementer .incrementer-row .input-container{
-  width: 250px;
   margin-top: 12px;
-  font-size: 2em;
+  font-size: 2.5em;
+  width: 125px;
+  margin-left: 5px
 
 }
 .incrementer .incrementer-row .input-container .postfix{
-  font-size: 0.7em;
+  font-size: 0.5em;
   margin-left: -10px;
 }
 .incrementer .incrementer-row .icon:before {
-  font-size: 22px;
+  font-size: 18px;
   color: #fff;
 }
