@@ -1,15 +1,32 @@
-.incrementer .incrementer-row .input-container{
-  margin-top: 12px;
+.incrementer .incrementer-row .input-container {
+  padding-top: 12px;
   font-size: 2.5em;
-  width: 125px;
+  width: 150px;
   margin-left: 5px
-
 }
-.incrementer .incrementer-row .input-container .postfix{
+.incrementer .incrementer-row .input-container .postfix {
   font-size: 0.5em;
   margin-left: -10px;
 }
 .incrementer .incrementer-row .icon:before {
   font-size: 18px;
   color: #fff;
+}
+.incrementer .incrementer-row .hour-container {
+  display: inline-block;
+  opacity: 0.2;
+  padding-right: 5px;
+}
+.incrementer .incrementer-row .minute-container {
+  display: inline-block;
+  padding-left: 5px;
+  opacity: 0.2;
+}
+
+.incrementer .incrementer-row .minutes .minute-container {
+  opacity: 1;
+}
+
+.incrementer .incrementer-row .hours .hour-container {
+  opacity: 1;
 }
