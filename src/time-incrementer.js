@@ -11,7 +11,7 @@ angular.module('timeincrementer', [])
         min2: 0,
         max2: 60,
         step: 1,
-        val2: "50",
+        val2: "0",
         prefix: undefined,
         postfix: undefined,
         postfix2: 'm',
