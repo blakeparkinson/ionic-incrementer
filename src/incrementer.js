@@ -13,7 +13,7 @@ angular.module('incrementer', [])
         postfix: undefined,
         decimals: 0,
         stepInterval: 200,
-        stepIntervalDelay: 600,
+        stepIntervalDelay: 200,
         initval: ''
       };
       angular.forEach(defaultScope, function(value, key) {
