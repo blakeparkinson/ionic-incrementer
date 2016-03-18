@@ -20,7 +20,6 @@ angular.module('incrementer', [])
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
       });
       scope.val = attrs.value || scope.initval;
-      console.log(scope);
     };
 
     return {
