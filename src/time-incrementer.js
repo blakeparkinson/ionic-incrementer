@@ -53,7 +53,6 @@ angular.module('timeincrementer', [])
         ngModel.$render();
 
         scope.toggleView = function(view) {
-          console.log(view);
           scope.view = view;
         };
 
@@ -74,7 +73,6 @@ angular.module('timeincrementer', [])
           } else {
             oldval = scope.val2;
             var value = parseFloat(parseFloat(Number(scope.val2)) - parseFloat(scope.step)).toFixed(scope.decimals);
-            console.log(value);
 
             if (value < parseInt(scope.min2)) {
               value = parseFloat(scope.min2).toFixed(scope.decimals);
@@ -167,7 +165,6 @@ angular.module('timeincrementer', [])
         };
 
         scope.checkValue = function() {
-          console.log(scope.val);
           var val;
           if (scope.view == 'hours') {
             if (scope.val !== '' && !scope.val.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
@@ -176,7 +173,6 @@ angular.module('timeincrementer', [])
               scope.refreshModels(scope.val, scope.val2);
             }
           } else {
-            console.log(scope);
             if (scope.val2 !== '' && !scope.val2.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
               val = oldval2 !== '' ? parseFloat(oldval2).toFixed(scope.decimals) : parseFloat(scope.min).toFixed(scope.decimals);
               scope.val2 = val;
