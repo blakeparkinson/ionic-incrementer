@@ -17,7 +17,7 @@ angular.module('timeincrementer', [])
         postfix2: 'm',
         decimals: 0,
         stepInterval: 200,
-        stepIntervalDelay: 200,
+        stepIntervalDelay: 600,
         initval: ''
       };
       angular.forEach(defaultScope, function(value, key) {
@@ -116,9 +116,7 @@ angular.module('timeincrementer', [])
 
           clickStart = Date.now();
           scope.stopSpin();
-          if (swipe) {
-            $timeout(function() {}, scope.stepIntervalDelay);
-          } else {
+          if (!swipe){
 
             $timeout(function() {
 
@@ -137,9 +135,7 @@ angular.module('timeincrementer', [])
 
           clickStart = Date.now();
 
-          if (swipe) {
-            $timeout(function() {}, scope.stepIntervalDelay);
-          } else {
+          if (!swipe){
 
             var timeout = $timeout(function() {
 
