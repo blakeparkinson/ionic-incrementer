@@ -68,10 +68,7 @@ angular.module('incrementer', [])
 
           clickStart = Date.now();
           scope.stopSpin();
-          if (swipe) {
-            $timeout(function() {
-            }, scope.stepIntervalDelay);
-          } else {
+          if (!swipe){
 
             $timeout(function() {
 
@@ -90,9 +87,7 @@ angular.module('incrementer', [])
 
           clickStart = Date.now();
 
-          if (swipe) {
-            $timeout(function() {}, scope.stepIntervalDelay);
-          } else {
+          if (!swipe){
 
             var timeout = $timeout(function() {
 
