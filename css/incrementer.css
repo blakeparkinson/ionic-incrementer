@@ -6,7 +6,7 @@
 }
 .incrementer .incrementer-row .input-container .postfix {
   font-size: 0.5em;
-  margin-left: -10px;
+  margin-left: -12px;
 }
 .incrementer .incrementer-row .icon:before {
   font-size: 18px;
