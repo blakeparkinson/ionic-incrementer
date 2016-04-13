@@ -11,19 +11,19 @@ angular.module('timeincrementer', [])
         min2: 0,
         max2: 60,
         step: 1,
-        val2: "0",
+        initminute: "0",
         prefix: undefined,
         postfix: undefined,
         postfix2: 'm',
         decimals: 0,
         stepInterval: 200,
         stepIntervalDelay: 600,
-        initval: ''
+        inithour: ''
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
       });
-      scope.val = attrs.value || scope.initval;
+      scope.val = attrs.value || scope.inithour;
 
     };
 
@@ -38,7 +38,7 @@ angular.module('timeincrementer', [])
 
         var timeout, timer, helper = true,
           oldval = scope.val,
-          oldval2 = scope.val2,
+          oldval2 = scope.initminute,
           clickStart, swipeTimer;
 
 
@@ -47,7 +47,7 @@ angular.module('timeincrementer', [])
 
         var timeSettings = {
           "hours": scope.val,
-          "minutes": scope.val2
+          "minutes": scope.initminute
         };
         ngModel.$setViewValue(timeSettings);
         ngModel.$render();
@@ -64,24 +64,24 @@ angular.module('timeincrementer', [])
             if (value < parseInt(scope.min)) {
               value = parseFloat(scope.min).toFixed(scope.decimals);
               scope.val = value;
-              scope.refreshModels(scope.val, scope.val2);
+              scope.refreshModels(scope.val, scope.initminute);
               return;
             }
             scope.val = value;
-            scope.refreshModels(scope.val, scope.val2);
+            scope.refreshModels(scope.val, scope.initminute);
 
           } else {
-            oldval = scope.val2;
-            var value = parseFloat(parseFloat(Number(scope.val2)) - parseFloat(scope.step)).toFixed(scope.decimals);
+            oldval = scope.initminute;
+            var value = parseFloat(parseFloat(Number(scope.initminute)) - parseFloat(scope.step)).toFixed(scope.decimals);
 
             if (value < parseInt(scope.min2)) {
               value = parseFloat(scope.min2).toFixed(scope.decimals);
-              scope.val2 = value;
-              scope.refreshModels(scope.val1, scope.val2);
+              scope.initminute = value;
+              scope.refreshModels(scope.val1, scope.initminute);
               return;
             }
-            scope.val2 = value;
-            scope.refreshModels(scope.val, scope.val2);
+            scope.initminute = value;
+            scope.refreshModels(scope.val, scope.initminute);
 
           }
         };
@@ -96,16 +96,16 @@ angular.module('timeincrementer', [])
 
             scope.val = value;
 
-            scope.refreshModels(scope.val, scope.val2);
+            scope.refreshModels(scope.val, scope.initminute);
           }
           if (scope.view == 'minutes') {
-            oldval2 = scope.val2;
-            var value = parseFloat(parseFloat(Number(scope.val2)) + parseFloat(scope.step)).toFixed(scope.decimals);
+            oldval2 = scope.initminute;
+            var value = parseFloat(parseFloat(Number(scope.initminute)) + parseFloat(scope.step)).toFixed(scope.decimals);
 
             if (value > parseInt(scope.max2)) return;
 
-            scope.val2 = value;
-            scope.refreshModels(scope.val, scope.val2);
+            scope.initminute = value;
+            scope.refreshModels(scope.val, scope.initminute);
           }
 
         };
@@ -169,10 +169,10 @@ angular.module('timeincrementer', [])
               scope.refreshModels(scope.val, scope.val2);
             }
           } else {
-            if (scope.val2 !== '' && !scope.val2.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
+            if (scope.initminute !== '' && !scope.initminute.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
               val = oldval2 !== '' ? parseFloat(oldval2).toFixed(scope.decimals) : parseFloat(scope.min).toFixed(scope.decimals);
-              scope.val2 = val;
-              scope.refreshModels(scope.val, scope.val2);
+              scope.initminute = val;
+              scope.refreshModels(scope.val, scope.initminute);
 
             }
           }
@@ -198,7 +198,7 @@ angular.module('timeincrementer', [])
         ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
         '<div class="minute-container" ng-click="toggleView(&quot;minutes&quot)">' +
-        '<span ng-model="val2" class="incrementer-value" ng-blur="checkValue()">{{val2}}</span>' +
+        '<span ng-model="initminute" class="incrementer-value" ng-blur="checkValue()">{{initminute}}</span>' +
         ' <span class="postfix" ng-show="postfix2" ng-bind="postfix2"></span>' +
         '</div>' +
         '</div>' +
