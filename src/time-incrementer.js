@@ -18,19 +18,20 @@ angular.module('timeincrementer', [])
         decimals: 0,
         stepInterval: 200,
         stepIntervalDelay: 600,
-        inithour: ''
+        inithour: '',
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
       });
       scope.val = attrs.value || scope.inithour;
-
     };
 
     return {
       restrict: 'EA',
       require: 'ngModel',
-      scope: true,
+      scope: {
+        onItemChange: '&'
+      },
       replace: true,
 
       link: function(scope, element, attrs, ngModel) {
@@ -40,6 +41,8 @@ angular.module('timeincrementer', [])
           oldval = scope.val,
           oldval2 = scope.initminute,
           clickStart, swipeTimer;
+
+        var originalmin2 = scope.min2;
 
 
 
@@ -61,14 +64,27 @@ angular.module('timeincrementer', [])
             oldval = scope.val;
             var value = parseFloat(parseFloat(Number(scope.val)) - parseFloat(scope.step)).toFixed(scope.decimals);
 
+            //if they are set to 0 hours, they need to be set to min of 1 minute
+            if (value == 0) {
+              scope.min2 = 1;
+              if (parseInt(scope.initminute) === 0) {
+                scope.initminute = "1";
+                scope.refreshModels(scope.val, scope.initminute);
+              }
+            } else {
+              scope.min2 = parseInt(originalmin2);
+            }
+
             if (value < parseInt(scope.min)) {
               value = parseFloat(scope.min).toFixed(scope.decimals);
               scope.val = value;
               scope.refreshModels(scope.val, scope.initminute);
+
               return;
             }
             scope.val = value;
             scope.refreshModels(scope.val, scope.initminute);
+
 
           } else {
             oldval = scope.initminute;
@@ -83,6 +99,7 @@ angular.module('timeincrementer', [])
             scope.initminute = value;
             scope.refreshModels(scope.val, scope.initminute);
 
+
           }
         };
 
@@ -92,11 +109,17 @@ angular.module('timeincrementer', [])
             oldval = scope.val;
             var value = parseFloat(parseFloat(Number(scope.val)) + parseFloat(scope.step)).toFixed(scope.decimals);
 
+            //update the min if they arent on 0 hours
+            if (value !== 0) {
+              scope.min2 = parseInt(originalmin2);
+            }
+
             if (value > parseInt(scope.max)) return;
 
             scope.val = value;
 
             scope.refreshModels(scope.val, scope.initminute);
+
           }
           if (scope.view == 'minutes') {
             oldval2 = scope.initminute;
@@ -106,6 +129,8 @@ angular.module('timeincrementer', [])
 
             scope.initminute = value;
             scope.refreshModels(scope.val, scope.initminute);
+            scope.onItemChange();
+
           }
 
         };
@@ -116,7 +141,7 @@ angular.module('timeincrementer', [])
 
           clickStart = Date.now();
           scope.stopSpin();
-          if (!swipe){
+          if (!swipe) {
 
             $timeout(function() {
 
@@ -135,7 +160,7 @@ angular.module('timeincrementer', [])
 
           clickStart = Date.now();
 
-          if (!swipe){
+          if (!swipe) {
 
             var timeout = $timeout(function() {
 
@@ -169,6 +194,7 @@ angular.module('timeincrementer', [])
               scope.refreshModels(scope.val, scope.val2);
             }
           } else {
+
             if (scope.initminute !== '' && !scope.initminute.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
               val = oldval2 !== '' ? parseFloat(oldval2).toFixed(scope.decimals) : parseFloat(scope.min).toFixed(scope.decimals);
               scope.initminute = val;
@@ -185,6 +211,7 @@ angular.module('timeincrementer', [])
           };
           ngModel.$setViewValue(timeSettings);
           ngModel.$render();
+          scope.onItemChange();
         };
       },
 
