@@ -93,7 +93,7 @@ angular.module('timeincrementer', [])
             if (value < parseInt(scope.min2)) {
               value = parseFloat(scope.min2).toFixed(scope.decimals);
               scope.initminute = value;
-              scope.refreshModels(scope.val1, scope.initminute);
+              scope.refreshModels(scope.val, scope.initminute);
               return;
             }
             scope.initminute = value;
