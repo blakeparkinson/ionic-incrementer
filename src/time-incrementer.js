@@ -19,6 +19,8 @@ angular.module('timeincrementer', [])
         stepInterval: 200,
         stepIntervalDelay: 600,
         inithour: '',
+        infinity: false,
+        imgpath: ''
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -79,12 +81,19 @@ angular.module('timeincrementer', [])
               value = parseFloat(scope.min).toFixed(scope.decimals);
               scope.val = value;
               scope.refreshModels(scope.val, scope.initminute);
-
               return;
             }
-            scope.val = value;
-            scope.refreshModels(scope.val, scope.initminute);
 
+            if (scope.infinity) {
+              // If we're at infinity and decrement, value goes back to max
+              if (scope.showInfinity) {
+                value = scope.max;
+              }
+              scope.showInfinity = false;
+            }
+
+            scope.val = value;
+            scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
 
           } else {
             oldval = scope.initminute;
@@ -93,13 +102,11 @@ angular.module('timeincrementer', [])
             if (value < parseInt(scope.min2)) {
               value = parseFloat(scope.min2).toFixed(scope.decimals);
               scope.initminute = value;
-              scope.refreshModels(scope.val, scope.initminute);
+              scope.refreshModels(scope.val1, scope.initminute);
               return;
             }
             scope.initminute = value;
-            scope.refreshModels(scope.val, scope.initminute);
-
-
+            scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
           }
         };
 
@@ -114,11 +121,21 @@ angular.module('timeincrementer', [])
               scope.min2 = parseInt(originalmin2);
             }
 
-            if (value > parseInt(scope.max)) return;
+            if (value > parseInt(scope.max)) {
+              if (scope.infinity) {
+                scope.showInfinity = true;
+                scope.refreshModels(scope.max, scope.initminute, true);
+                return;
+              }
+            } else {
+              if (scope.infinity) {
+                scope.showInfinity = false;
+              }
+            }
 
             scope.val = value;
 
-            scope.refreshModels(scope.val, scope.initminute);
+            scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
 
           }
           if (scope.view == 'minutes') {
@@ -204,10 +221,11 @@ angular.module('timeincrementer', [])
           }
         };
 
-        scope.refreshModels = function(hourVal, minuteVal) {
+        scope.refreshModels = function(hourVal, minuteVal, isInfinite) {
           var timeSettings = {
             "hours": hourVal,
-            "minutes": minuteVal
+            "minutes": minuteVal,
+            "isInfinite": isInfinite
           };
           ngModel.$setViewValue(timeSettings);
           ngModel.$render();
@@ -221,10 +239,13 @@ angular.module('timeincrementer', [])
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
         '<div class="input-container {{view}}" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
         '<div class="hour-container" ng-click="toggleView(&quot;hours&quot)">' +
-        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span>' +
-        ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
+        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">' +
+        ' <span ng-if=showInfinity><img ng-src="{{imgpath}}" /></span>' +
+        ' <span ng-if=!showInfinity>{{val}}</span>' +
+        '</span>' +
+        ' <span ng-if=!showInfinity class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
-        '<div class="minute-container" ng-click="toggleView(&quot;minutes&quot)">' +
+        '<div ng-if=!showInfinity class="minute-container" ng-click="toggleView(&quot;minutes&quot)">' +
         '<span ng-model="initminute" class="incrementer-value" ng-blur="checkValue()">{{initminute}}</span>' +
         ' <span class="postfix" ng-show="postfix2" ng-bind="postfix2"></span>' +
         '</div>' +
