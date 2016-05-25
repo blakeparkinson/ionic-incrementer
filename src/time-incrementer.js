@@ -93,7 +93,14 @@ angular.module('timeincrementer', [])
             }
 
             scope.val = value;
-            scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
+            if (scope.showInfinity){
+              scope.refreshModels(null, null, scope.showInfinity);
+
+            }
+            else{
+              scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
+
+            }
 
           } else {
             oldval = scope.initminute;
@@ -106,7 +113,13 @@ angular.module('timeincrementer', [])
               return;
             }
             scope.initminute = value;
-            scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
+            if (scope.showInfinity){
+              scope.refreshModels(null, null, true);
+
+            }
+            else{
+              scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
+            }
           }
         };
 
@@ -124,7 +137,7 @@ angular.module('timeincrementer', [])
             if (value > parseInt(scope.max)) {
               if (scope.infinity) {
                 scope.showInfinity = true;
-                scope.refreshModels(scope.max, scope.initminute, true);
+                scope.refreshModels(null, null, true);
                 return;
               }
             } else {
@@ -135,7 +148,12 @@ angular.module('timeincrementer', [])
 
             scope.val = value;
 
-            scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
+            if (scope.showInfinity){
+              scope.refreshModels(null, null, true);
+            }
+            else {
+              scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
+            }
 
           }
           if (scope.view == 'minutes') {
