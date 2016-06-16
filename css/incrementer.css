@@ -8,9 +8,19 @@
   font-size: 0.5em;
   margin-left: -10px;
 }
-.incrementer .incrementer-row .icon:before {
-  font-size: 18px;
-  color: #fff;
+.incrementer .incrementer-row .plus {
+  font-size: 2em;
+  color: white;
+  font-size: 2em;
+  font-family: "Gotham-Light", sans-serif;
+  opacity: 1;
+  line-height: 1.4;
+}
+.incrementer .incrementer-row .minus {
+  opacity: 1;
+  color: white;
+  font-size: 3em;
+  font-family: "Gotham-Light", sans-serif;
 }
 .incrementer .incrementer-row .hour-container {
   display: inline-block;
@@ -22,11 +32,9 @@
   padding-left: 2px;
   opacity: 0.2;
 }
-
 .incrementer .incrementer-row .minutes .minute-container {
   opacity: 1;
 }
-
 .incrementer .incrementer-row .hours .hour-container {
   opacity: 1;
 }
