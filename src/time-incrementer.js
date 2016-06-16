@@ -253,7 +253,7 @@ angular.module('timeincrementer', [])
 
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
-        '<a class="button button-icon icon ion-minus" on-touch="startSpinDown()" on-release="stopSpin()"></a>' +
+        '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
         '<div class="input-container {{view}}" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
         '<div class="hour-container" ng-click="toggleView(&quot;hours&quot)">' +
@@ -268,7 +268,7 @@ angular.module('timeincrementer', [])
         ' <span class="postfix" ng-show="postfix2" ng-bind="postfix2"></span>' +
         '</div>' +
         '</div>' +
-        '<a class="button button-icon icon ion-plus" on-touch="startSpinUp()" on-release="stopSpin()"></a>' +
+        '<a class="button button-icon plus" on-touch="startSpinUp()" on-release="stopSpin()">+</a>' +
         '</div>' +
         '</div>'
     };
