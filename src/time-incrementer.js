@@ -20,6 +20,7 @@ angular.module('timeincrementer', [])
         stepIntervalDelay: 600,
         inithour: '',
         infinity: false,
+        allowzero: false,
         imgpath: ''
       };
       angular.forEach(defaultScope, function(value, key) {
@@ -67,7 +68,7 @@ angular.module('timeincrementer', [])
             var value = parseFloat(parseFloat(Number(scope.val)) - parseFloat(scope.step)).toFixed(scope.decimals);
 
             //if they are set to 0 hours, they need to be set to min of 1 minute
-            if (value == 0) {
+            if (value == 0 && !scope.allowzero) {
               scope.min2 = 1;
               if (parseInt(scope.initminute) === 0) {
                 scope.initminute = "1";
