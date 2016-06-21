@@ -138,8 +138,8 @@ angular.module('timeincrementer', [])
               if (scope.infinity) {
                 scope.showInfinity = true;
                 scope.refreshModels(null, null, true);
-                return;
               }
+              return;
             } else {
               if (scope.infinity) {
                 scope.showInfinity = false;
