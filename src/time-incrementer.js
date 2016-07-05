@@ -94,11 +94,10 @@ angular.module('timeincrementer', [])
             }
 
             scope.val = value;
-            if (scope.showInfinity){
+            if (scope.showInfinity) {
               scope.refreshModels(null, null, scope.showInfinity);
 
-            }
-            else{
+            } else {
               scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
 
             }
@@ -114,11 +113,10 @@ angular.module('timeincrementer', [])
               return;
             }
             scope.initminute = value;
-            if (scope.showInfinity){
+            if (scope.showInfinity) {
               scope.refreshModels(null, null, true);
 
-            }
-            else{
+            } else {
               scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
             }
           }
@@ -149,10 +147,9 @@ angular.module('timeincrementer', [])
 
             scope.val = value;
 
-            if (scope.showInfinity){
+            if (scope.showInfinity) {
               scope.refreshModels(null, null, true);
-            }
-            else {
+            } else {
               scope.refreshModels(scope.val, scope.initminute, scope.showInfinity);
             }
 
@@ -255,18 +252,13 @@ angular.module('timeincrementer', [])
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
         '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
-        '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
+        '<span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
         '<div class="input-container {{view}}" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
         '<div class="hour-container" ng-click="toggleView(&quot;hours&quot)">' +
-        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">' +
-        ' <span ng-if=showInfinity><img ng-src="{{imgpath}}" /></span>' +
-        ' <span ng-if=!showInfinity>{{val}}</span>' +
-        '</span>' +
-        ' <span ng-if=!showInfinity class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
+        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()"><span ng-if=showInfinity><img ng-src="{{imgpath}}" /></span><span ng-if=!showInfinity>{{val}}</span><span ng-if=!showInfinity class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
         '<div ng-if=!showInfinity class="minute-container" ng-click="toggleView(&quot;minutes&quot)">' +
-        '<span ng-model="initminute" class="incrementer-value" ng-blur="checkValue()">{{initminute}}</span>' +
-        ' <span class="postfix" ng-show="postfix2" ng-bind="postfix2"></span>' +
+        '<span ng-model="initminute" class="incrementer-value" ng-blur="checkValue()">{{initminute}}</span><span class="postfix" ng-show="postfix2" ng-bind="postfix2"></span>' +
         '</div>' +
         '</div>' +
         '<a class="button button-icon plus" on-touch="startSpinUp()" on-release="stopSpin()">+</a>' +
