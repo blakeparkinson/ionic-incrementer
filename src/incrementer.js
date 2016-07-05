@@ -127,8 +127,7 @@ angular.module('incrementer', [])
         '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
         '<div class="input-container" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
-        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span>' +
-        ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
+        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span><span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
         '<a class="button button-icon plus" on-touch="startSpinUp()" on-release="stopSpin()">+</a>' +
         '</div>' +
