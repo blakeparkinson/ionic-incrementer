@@ -21,7 +21,9 @@ angular.module('timeincrementer', [])
         inithour: '',
         infinity: false,
         allowzero: false,
-        imgpath: ''
+        imgpath: '',
+        initialSelection: 'hours',
+        minuteTransition: true
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -47,9 +49,12 @@ angular.module('timeincrementer', [])
 
         var originalmin2 = scope.min2;
 
-
-
-        scope.view = 'hours';
+        if (scope.initialSelection !== 'minutes'){
+          scope.view = 'hours';
+        }
+        else{
+          scope.view = scope.initialSelection;
+        }
 
         var timeSettings = {
           "hours": scope.val,
