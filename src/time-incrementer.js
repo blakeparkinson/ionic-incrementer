@@ -49,10 +49,9 @@ angular.module('timeincrementer', [])
 
         var originalmin2 = scope.min2;
 
-        if (scope.initialSelection !== 'minutes'){
+        if (scope.initialSelection !== 'minutes') {
           scope.view = 'hours';
-        }
-        else{
+        } else {
           scope.view = scope.initialSelection;
         }
 
@@ -114,21 +113,25 @@ angular.module('timeincrementer', [])
 
             if (value < parseInt(scope.min2)) {
               scope.val = parseFloat(Number(scope.val));
-              if (scope.val > 0){
-                value = scope.max2;
-                scope.initminute = value;
-                scope.val--;
-              }
-              else{
+              if (scope.val > 0) {
+                if (scope.minuteTransition) {
+                  value = scope.max2;
+                  scope.initminute = value;
+                  scope.val--;
+                }
+                else{
+                  value = parseFloat(scope.min2).toFixed(scope.decimals);
+                  scope.initminute = value;
+                }
+              } else {
 
                 value = parseFloat(scope.min2).toFixed(scope.decimals);
                 scope.initminute = value;
               }
               scope.refreshModels(scope.val, scope.initminute);
               return;
-            }
-            else if (value == parseInt(scope.min2)){
-              if (scope.val == 0){
+            } else if (value == parseInt(scope.min2) && scope.minuteTransition) {
+              if (scope.val == 0) {
                 value = '1';
               }
             }
@@ -178,9 +181,13 @@ angular.module('timeincrementer', [])
             oldval2 = scope.initminute;
             var value = parseFloat(parseFloat(Number(scope.initminute)) + parseFloat(scope.step)).toFixed(scope.decimals);
 
-            if (value > parseInt(scope.max2)){
-              scope.val++;
-              value='0';
+            if (value > parseInt(scope.max2)) {
+              if (scope.minuteTransition) {
+                scope.val++;
+                value = '0';
+              } else {
+                return;
+              }
             }
 
             scope.initminute = value;
