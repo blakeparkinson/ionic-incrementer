@@ -85,7 +85,7 @@ angular.module('timeincrementer', [])
 
             if (value < parseInt(scope.min)) {
               value = parseFloat(scope.min).toFixed(scope.decimals);
-              scope.val = value;
+              scope.val = String(value);
               scope.refreshModels(scope.val, scope.initminute);
               return;
             }
@@ -108,14 +108,29 @@ angular.module('timeincrementer', [])
             }
 
           } else {
+
             oldval = scope.initminute;
             var value = parseFloat(parseFloat(Number(scope.initminute)) - parseFloat(scope.step)).toFixed(scope.decimals);
 
             if (value < parseInt(scope.min2)) {
-              value = parseFloat(scope.min2).toFixed(scope.decimals);
-              scope.initminute = value;
-              scope.refreshModels(scope.val1, scope.initminute);
+              scope.val = parseFloat(Number(scope.val));
+              if (scope.val > 0){
+                value = scope.max2;
+                scope.initminute = value;
+                scope.val--;
+              }
+              else{
+
+                value = parseFloat(scope.min2).toFixed(scope.decimals);
+                scope.initminute = value;
+              }
+              scope.refreshModels(scope.val, scope.initminute);
               return;
+            }
+            else if (value == parseInt(scope.min2)){
+              if (scope.val == 0){
+                value = '1';
+              }
             }
             scope.initminute = value;
             if (scope.showInfinity) {
@@ -163,7 +178,10 @@ angular.module('timeincrementer', [])
             oldval2 = scope.initminute;
             var value = parseFloat(parseFloat(Number(scope.initminute)) + parseFloat(scope.step)).toFixed(scope.decimals);
 
-            if (value > parseInt(scope.max2)) return;
+            if (value > parseInt(scope.max2)){
+              scope.val++;
+              value='0';
+            }
 
             scope.initminute = value;
             scope.refreshModels(scope.val, scope.initminute);
@@ -226,7 +244,7 @@ angular.module('timeincrementer', [])
         scope.checkValue = function() {
           var val;
           if (scope.view == 'hours') {
-            if (scope.val !== '' && !scope.val.match(/^-?(?:\d+|\d*\.\d+)$/i)) {
+            if (scope.val !== '' && !String(scope.val).match(/^-?(?:\d+|\d*\.\d+)$/i)) {
               val = oldval !== '' ? parseFloat(oldval).toFixed(0) : parseFloat(scope.min).toFixed(scope.decimals);
               scope.val = val;
               scope.refreshModels(scope.val, scope.val2);
