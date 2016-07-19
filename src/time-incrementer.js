@@ -283,7 +283,7 @@ angular.module('timeincrementer', [])
         '<div class="row incrementer-row">' +
         '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
         '<span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container {{view}}" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
+        '<div class="input-container {{view}}" on-drag-right="startSpinUp(true)" on-drag-left="startSpinDown(true)" on-release="stopSpin(true)">' +
         '<div class="hour-container" ng-click="toggleView(&quot;hours&quot)">' +
         '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()"><span ng-if=showInfinity><img ng-src="{{imgpath}}" /></span><span ng-if=!showInfinity>{{val}}</span><span ng-if=!showInfinity class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
