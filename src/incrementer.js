@@ -68,7 +68,7 @@ angular.module('incrementer', [])
 
           clickStart = Date.now();
           scope.stopSpin();
-          if (!swipe){
+          if (!swipe) {
 
             $timeout(function() {
 
@@ -87,7 +87,7 @@ angular.module('incrementer', [])
 
           clickStart = Date.now();
 
-          if (!swipe){
+          if (!swipe) {
 
             var timeout = $timeout(function() {
 
@@ -125,8 +125,8 @@ angular.module('incrementer', [])
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
         '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
-        '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
+        '<span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
+        '<div class="input-container" on-drag-right="startSpinUp(true)" on-drag-left="startSpinDown(true)" on-release="stopSpin(true)">' +
         '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span><span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
         '<a class="button button-icon plus" on-touch="startSpinUp()" on-release="stopSpin()">+</a>' +
