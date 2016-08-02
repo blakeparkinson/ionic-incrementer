@@ -14,7 +14,9 @@ angular.module('incrementer', [])
         decimals: 0,
         stepInterval: 200,
         stepIntervalDelay: 200,
-        initval: ''
+        initval: '',
+        decState: '',
+        incState: ''
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -48,6 +50,11 @@ angular.module('incrementer', [])
             return;
           }
 
+          if (value == parseInt(scope.min)) {
+            scope.decState = 'remove';
+          }
+
+          scope.incState = '';
           scope.val = value;
           ngModel.$setViewValue(value);
         };
@@ -57,7 +64,11 @@ angular.module('incrementer', [])
           var value = parseFloat(parseFloat(Number(scope.val)) + parseFloat(scope.step)).toFixed(scope.decimals);
 
           if (value > parseInt(scope.max)) return;
+          if (value == parseInt(scope.max)) {
+            scope.incState = 'remove';
+          }
 
+          scope.decState = '';
           scope.val = value;
           ngModel.$setViewValue(value);
         };
@@ -124,12 +135,12 @@ angular.module('incrementer', [])
 
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
-        '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
+        '<a class="button button-icon minus {{ decState }}" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
         '<span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container" on-drag-right="startSpinUp(true)" on-drag-left="startSpinDown(true)" on-release="stopSpin(true)">' +
+        '<div class="input-container" on-drag-right="startSpinUp(true)" on-drag-left="startSpinDown(true)" on-release="stopSpin(true)"s>' +
         '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span><span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
-        '<a class="button button-icon plus" on-touch="startSpinUp()" on-release="stopSpin()">+</a>' +
+        '<a class="button button-icon plus {{ incState }}" on-touch="startSpinUp()" on-release="stopSpin()">+</a>' +
         '</div>' +
         '</div>'
     };
