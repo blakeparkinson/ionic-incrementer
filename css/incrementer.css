@@ -37,3 +37,6 @@
 .incrementer .incrementer-row .hours .hour-container {
   opacity: 1;
 }
+.incrementer .incrementer-row .remove {
+  visibility: hidden;
+}
