@@ -23,7 +23,8 @@ angular.module('timeincrementer', [])
         allowzero: false,
         imgpath: '',
         initialSelection: 'hours',
-        minuteTransition: true
+        minuteTransition: true,
+        swipeInterval: 100
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -45,7 +46,7 @@ angular.module('timeincrementer', [])
         var timeout, timer, helper = true,
           oldval = scope.val,
           oldval2 = scope.initminute,
-          clickStart, swipeTimer;
+          clickStart, swipeTimer, activeSwipe;
 
         var originalmin2 = scope.min2;
 
@@ -146,6 +147,7 @@ angular.module('timeincrementer', [])
         };
 
         scope.increment = function() {
+          console.log('up');
           if (scope.view == 'hours') {
 
             oldval = scope.val;
@@ -199,6 +201,15 @@ angular.module('timeincrementer', [])
         };
 
         scope.startSpinUp = function(swipe) {
+          if (swipe){
+            if (activeSwipe){
+              return;
+            }
+            activeSwipe = true;
+            $timeout(()=>{
+              activeSwipe = false;
+            }, scope.swipeInterval);
+          }
           scope.checkValue();
           scope.increment();
 
@@ -217,7 +228,15 @@ angular.module('timeincrementer', [])
         };
 
         scope.startSpinDown = function(swipe) {
-
+          if (swipe){
+            if (activeSwipe){
+              return;
+            }
+            activeSwipe = true;
+            $timeout(()=>{
+              activeSwipe = false;
+            }, scope.swipeInterval);
+          }
           scope.checkValue();
           scope.decrement();
 
