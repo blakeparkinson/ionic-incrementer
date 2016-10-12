@@ -5,6 +5,7 @@ angular.module('incrementer', [])
     'use strict';
 
     var setScopeValues = function(scope, attrs) {
+      console.log(attrs);
       var defaultScope = {
         min: 0,
         max: 200,
@@ -70,7 +71,8 @@ angular.module('incrementer', [])
               return;
             }
             activeSwipe = true;
-            $timeout(()=>{
+            console.log(scope.swipeInterval);
+            $timeout( function(){
               activeSwipe = false;
             }, scope.swipeInterval);
           }
@@ -102,7 +104,7 @@ angular.module('incrementer', [])
               return;
             }
             activeSwipe = true;
-            $timeout(()=>{
+            $timeout(function(){
               activeSwipe = false;
             }, scope.swipeInterval);
           }
