@@ -147,7 +147,6 @@ angular.module('timeincrementer', [])
         };
 
         scope.increment = function() {
-          console.log('up');
           if (scope.view == 'hours') {
 
             oldval = scope.val;
@@ -206,7 +205,7 @@ angular.module('timeincrementer', [])
               return;
             }
             activeSwipe = true;
-            $timeout(()=>{
+            $timeout(function(){
               activeSwipe = false;
             }, scope.swipeInterval);
           }
@@ -233,7 +232,7 @@ angular.module('timeincrementer', [])
               return;
             }
             activeSwipe = true;
-            $timeout(()=>{
+            $timeout(function(){
               activeSwipe = false;
             }, scope.swipeInterval);
           }
