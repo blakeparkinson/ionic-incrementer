@@ -1,7 +1,7 @@
 angular.module('timeincrementer', [])
 
-.directive('timeincrementer', ['$timeout', '$interval',
-  function($timeout, $interval) {
+.directive('timeincrementer', ['$timeout', '$interval', '$rootScope',
+  function($timeout, $interval, $rootScope) {
     'use strict';
 
     var setScopeValues = function(scope, attrs) {
@@ -66,6 +66,11 @@ angular.module('timeincrementer', [])
         scope.toggleView = function(view) {
           scope.view = view;
         };
+
+        $rootScope.$on('autoIncrementTime', function (event, data) {
+          scope.val = data.value.hours;
+          scope.initminute = data.value.minutes;
+        });
 
         scope.decrement = function() {
           if (scope.view == 'hours') {
@@ -296,6 +301,7 @@ angular.module('timeincrementer', [])
           scope.onItemChange();
         };
       },
+
 
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
