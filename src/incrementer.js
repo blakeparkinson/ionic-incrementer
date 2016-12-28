@@ -1,11 +1,10 @@
 angular.module('incrementer', [])
 
-.directive('incrementer', ['$timeout', '$interval',
-  function($timeout, $interval) {
+.directive('incrementer', ['$timeout', '$interval', '$rootScope',
+  function($timeout, $interval, $rootScope) {
     'use strict';
 
     var setScopeValues = function(scope, attrs) {
-      console.log(attrs);
       var defaultScope = {
         min: 0,
         max: 200,
@@ -54,6 +53,10 @@ angular.module('incrementer', [])
           scope.val = value;
           ngModel.$setViewValue(value);
         };
+
+        $rootScope.$on('autoIncrement', function (event, data) {
+          scope.val = data.value;
+        });
 
         scope.increment = function() {
           oldval = scope.val;
@@ -148,6 +151,7 @@ angular.module('incrementer', [])
           }
         };
       },
+
 
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
