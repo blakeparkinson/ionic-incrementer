@@ -24,7 +24,8 @@ angular.module('timeincrementer', [])
         imgpath: '',
         initialSelection: 'hours',
         minuteTransition: true,
-        swipeInterval: 100
+        swipeInterval: 100,
+        timeIncrementerName: ''
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -68,8 +69,10 @@ angular.module('timeincrementer', [])
         };
 
         $rootScope.$on('autoIncrementTime', function (event, data) {
-          scope.val = data.value.hours;
-          scope.initminute = data.value.minutes;
+          if (scope.timeIncrementerName == data.timeIncrementerName){
+            scope.val = data.value.hours;
+            scope.initminute = data.value.minutes;
+          }
         });
 
         scope.decrement = function() {
