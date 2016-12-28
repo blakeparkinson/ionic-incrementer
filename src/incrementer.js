@@ -15,7 +15,8 @@ angular.module('incrementer', [])
         stepInterval: 200,
         stepIntervalDelay: 200,
         initval: '',
-        swipeInterval: 100
+        swipeInterval: 100,
+        incrementerName: ''
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -55,7 +56,9 @@ angular.module('incrementer', [])
         };
 
         $rootScope.$on('autoIncrement', function (event, data) {
-          scope.val = data.value;
+          if (data.incrementerName == scope.incrementerName){
+            scope.val = data.value;
+          }
         });
 
         scope.increment = function() {
