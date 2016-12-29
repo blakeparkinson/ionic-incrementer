@@ -70,8 +70,8 @@ angular.module('timeincrementer', [])
 
         $rootScope.$on('autoIncrementTime', function (event, data) {
           if (scope.timeIncrementerName == data.timeIncrementerName){
-            scope.val = data.value.hours;
-            scope.initminute = data.value.minutes;
+            scope.val = data.value.hours.toString();
+            scope.initminute = data.value.minutes.toString();
           }
         });
 
