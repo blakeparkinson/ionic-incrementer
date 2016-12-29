@@ -57,7 +57,7 @@ angular.module('incrementer', [])
 
         $rootScope.$on('autoIncrement', function (event, data) {
           if (data.incrementerName == scope.incrementerName){
-            scope.val = data.value;
+            scope.val = data.value.toString();
           }
         });
 
