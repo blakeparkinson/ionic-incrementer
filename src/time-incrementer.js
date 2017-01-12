@@ -18,10 +18,6 @@ angular.module('timeincrementer', [])
         decimals: 0,
         stepInterval: 200,
         stepIntervalDelay: 600,
-<<<<<<< HEAD
-        initval: '',
-        initialSelection: undefined
-=======
         inithour: '',
         infinity: false,
         allowzero: false,
@@ -30,7 +26,6 @@ angular.module('timeincrementer', [])
         minuteTransition: true,
         swipeInterval: 100,
         timeIncrementerName: ''
->>>>>>> origin/master
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -54,20 +49,12 @@ angular.module('timeincrementer', [])
           oldval2 = scope.initminute,
           clickStart, swipeTimer, activeSwipe;
 
-<<<<<<< HEAD
-        if (scope.initialSelection !== 'minutes'){
-          scope.view = 'minutes';
-        }
-        else{
-          scope.view = 'hours';
-=======
         var originalmin2 = scope.min2;
 
         if (scope.initialSelection !== 'minutes') {
           scope.view = 'hours';
         } else {
           scope.view = scope.initialSelection;
->>>>>>> origin/master
         }
 
         var timeSettings = {
@@ -321,15 +308,9 @@ angular.module('timeincrementer', [])
 
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
-<<<<<<< HEAD
-        '<a class="button button-icon icon ion-minus" on-touch="startSpinDown()" on-release="stopSpin()"></a>' +
-        '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
-=======
         '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
         '<span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
         '<div class="input-container {{view}}" on-drag-right="startSpinUp(true)" on-drag-left="startSpinDown(true)" on-release="stopSpin(true)">' +
->>>>>>> origin/master
         '<div class="hour-container" ng-click="toggleView(&quot;hours&quot)">' +
         '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()"><span ng-if=showInfinity><img ng-src="{{imgpath}}" /></span><span ng-if=!showInfinity>{{val}}</span><span ng-if=!showInfinity class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
