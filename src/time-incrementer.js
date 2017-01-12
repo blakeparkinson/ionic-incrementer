@@ -18,7 +18,8 @@ angular.module('timeincrementer', [])
         decimals: 0,
         stepInterval: 200,
         stepIntervalDelay: 600,
-        initval: ''
+        initval: '',
+        initialSelection: undefined
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -42,8 +43,12 @@ angular.module('timeincrementer', [])
           clickStart, swipeTimer;
 
 
-
-        scope.view = 'hours';
+        if (scope.initialSelection !== 'minutes'){
+          scope.view = 'minutes';
+        }
+        else{
+          scope.view = 'hours';
+        }
 
         var timeSettings = {
           "hours": scope.val,
@@ -192,7 +197,7 @@ angular.module('timeincrementer', [])
         '<div class="row incrementer-row">' +
         '<a class="button button-icon icon ion-minus" on-touch="startSpinDown()" on-release="stopSpin()"></a>' +
         '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container {{view}}" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
+        '<div class="input-container" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
         '<div class="hour-container" ng-click="toggleView(&quot;hours&quot)">' +
         '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span>' +
         ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +

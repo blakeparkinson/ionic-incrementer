@@ -1,0 +1,57 @@
+{
+  "name": "ionic-incrementer.js",
+  "version": "0.0.1",
+  "main": [
+    "./src/incrementer.js",
+    "./src/time-incrementer.js",
+    "./css/incrementer.css"
+  ],
+  "authors": [
+    "Blake Parkinson <wizardplow@gmail.com>"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/blakeparkinson/ionic-incrementer.git"
+  },
+  "description": "An angular incrementer plugin specifically built for icon",
+  "moduleType": [
+    "globals"
+  ],
+  "keywords": [
+    "angular",
+    "angular.js",
+    "ionic",
+    "incrementer",
+    "guage",
+    "increase",
+    "decrease",
+    "counter"
+  ],
+  "license": "BSD",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "examples",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.4.x",
+  },
+  "devDependencies": {
+  },
+  "resolutions": {
+  },
+  "homepage": "https://github.com/blakeparkinson/ionic-incrementer",
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.1",
+    "commit": "bd107e391258135589c750b747f973cd5108ea74"
+  },
+  "_source": "git://github.com/blakeparkinson/ionic-incrementer.git",
+  "_target": "^0.0.1",
+  "_originalSource": "ionic-incrementer.js",
+  "_direct": true
+}
