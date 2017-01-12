@@ -1,7 +1,7 @@
 angular.module('incrementer', [])
 
-.directive('incrementer', ['$timeout', '$interval',
-  function($timeout, $interval) {
+.directive('incrementer', ['$timeout', '$interval', '$rootScope',
+  function($timeout, $interval, $rootScope) {
     'use strict';
 
     var setScopeValues = function(scope, attrs) {
@@ -14,7 +14,9 @@ angular.module('incrementer', [])
         decimals: 0,
         stepInterval: 200,
         stepIntervalDelay: 200,
-        initval: ''
+        initval: '',
+        swipeInterval: 100,
+        incrementerName: ''
       };
       angular.forEach(defaultScope, function(value, key) {
         scope[key] = attrs.hasOwnProperty(key) ? attrs[key] : value;
@@ -33,6 +35,7 @@ angular.module('incrementer', [])
 
         var timeout, timer, helper = true,
           oldval = scope.val,
+          activeSwipe,
           clickStart, swipeTimer;
 
         ngModel.$setViewValue(scope.val);
@@ -52,6 +55,12 @@ angular.module('incrementer', [])
           ngModel.$setViewValue(value);
         };
 
+        $rootScope.$on('autoIncrement', function (event, data) {
+          if (data.incrementerName == scope.incrementerName){
+            scope.val = data.value.toString();
+          }
+        });
+
         scope.increment = function() {
           oldval = scope.val;
           var value = parseFloat(parseFloat(Number(scope.val)) + parseFloat(scope.step)).toFixed(scope.decimals);
@@ -63,12 +72,23 @@ angular.module('incrementer', [])
         };
 
         scope.startSpinUp = function(swipe) {
+          if (swipe){
+            if (activeSwipe){
+              return;
+            }
+            activeSwipe = true;
+            console.log(scope.swipeInterval);
+            $timeout( function(){
+              activeSwipe = false;
+            }, scope.swipeInterval);
+          }
+
           scope.checkValue();
           scope.increment();
 
           clickStart = Date.now();
           scope.stopSpin();
-          if (!swipe){
+          if (!swipe) {
 
             $timeout(function() {
 
@@ -78,16 +98,29 @@ angular.module('incrementer', [])
               }, scope.stepInterval);
             }, scope.stepIntervalDelay);
           }
+          else{
+
+          }
         };
 
         scope.startSpinDown = function(swipe) {
+
+          if (swipe){
+            if (activeSwipe){
+              return;
+            }
+            activeSwipe = true;
+            $timeout(function(){
+              activeSwipe = false;
+            }, scope.swipeInterval);
+          }
 
           scope.checkValue();
           scope.decrement();
 
           clickStart = Date.now();
 
-          if (!swipe){
+          if (!swipe) {
 
             var timeout = $timeout(function() {
 
@@ -122,15 +155,15 @@ angular.module('incrementer', [])
         };
       },
 
+
       template: '<div class="incrementer">' +
         '<div class="row incrementer-row">' +
-        '<a class="button button-icon icon ion-minus" on-touch="startSpinDown()" on-release="stopSpin()"></a>' +
-        '  <span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
-        '<div class="input-container" on-drag-right="startSpinDown(true)" on-drag-left="startSpinUp(true)" on-release="stopSpin(true)">' +
-        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span>' +
-        ' <span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
+        '<a class="button button-icon minus" on-touch="startSpinDown()" on-release="stopSpin()">-</a>' +
+        '<span class="prefix" ng-show="prefix" ng-bind="prefix"></span>' +
+        '<div class="input-container" on-drag-right="startSpinUp(true)" on-drag-left="startSpinDown(true)" on-release="stopSpin(true)">' +
+        '<span ng-model="val" class="incrementer-value" ng-blur="checkValue()">{{val}}</span><span class="postfix" ng-show="postfix" ng-bind="postfix"></span>' +
         '</div>' +
-        '<a class="button button-icon icon ion-plus" on-touch="startSpinUp()" on-release="stopSpin()"></a>' +
+        '<a class="button button-icon plus" on-touch="startSpinUp()" on-release="stopSpin()">+</a>' +
         '</div>' +
         '</div>'
     };
