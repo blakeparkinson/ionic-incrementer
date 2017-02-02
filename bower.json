@@ -1,9 +1,8 @@
 {
   "name": "ionic-incrementer.js",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": [
-    "./src/incrementer.js",
-    "./src/time-incrementer.js",
+    "./dist/incrementer.js",
     "./css/incrementer.css"
   ],
   "authors": [
@@ -44,14 +43,14 @@
   "resolutions": {
   },
   "homepage": "https://github.com/blakeparkinson/ionic-incrementer",
-  "_release": "0.0.1",
+  "_release": "0.0.2",
   "_resolution": {
     "type": "version",
-    "tag": "0.0.1",
-    "commit": "bd107e391258135589c750b747f973cd5108ea74"
+    "tag": "0.0.2",
+    "commit": "fb6e0b0bc39508f8b29cbae9ad23394f309f87a8"
   },
   "_source": "git://github.com/blakeparkinson/ionic-incrementer.git",
-  "_target": "^0.0.1",
-  "_originalSource": "ionic-incrementer.js",
+  "_target": "^0.0.2",
+  "_originalSource": "incrementer.js",
   "_direct": true
 }
